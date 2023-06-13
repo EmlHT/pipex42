@@ -6,7 +6,7 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:30:51 by ehouot            #+#    #+#             */
-/*   Updated: 2023/06/10 16:12:34 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/06/13 16:38:27 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	main_bonus(int argc, char **argv, char **envp)
 {
 	t_varb	var;
 	int		i;
+	int		ishere_doc;
 
 	i = 3;
-	parsing_bonus(argc, argv, &var);
+	ishere_doc = parsing_bonus(argc, argv, &var);
 	if (pipe(var.pfd) == -1)
 		ft_error("pipe error\n");
 	ft_read_to_pipe(argv[2], envp, &var);

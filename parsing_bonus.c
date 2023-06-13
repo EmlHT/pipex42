@@ -6,7 +6,7 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 17:12:37 by ehouot            #+#    #+#             */
-/*   Updated: 2023/06/13 14:50:14 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/06/13 18:21:42 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@ static void	ft_here_doc(int argc, char **argv, t_varb *var)
 			free(str);
 			break ;
 		}
-		write (var->fdhd, str, ft_strlen(str) + 1);
+		write (var->fdhd[1], str, ft_strlen(str) + 1);
 	}
-	close(var->fdhd);
+	close(var->fdhd[1]);
+	if (access(argv[argc - 1], F_OK) == 0)
+		unlink(argv[argc - 1]);
+	var->fd[1] = open(argv[argc - 1], O_RDWR | O_CREAT, 0666);
+	if (var->fd[1] == -1)
+		ft_error("outfile problem\n");
 }
 
-static void	ft_check_files(int argc, char **argv, t_varb *var, bool here_doc)
+static void	ft_check_files(int argc, char **argv, t_varb *var)
 {
 	var->fd[0] = open(argv[1], O_RDWR);
 	if (var->fd[0] == -1)
@@ -43,17 +48,19 @@ static void	ft_check_files(int argc, char **argv, t_varb *var, bool here_doc)
 		ft_error("outfile problem\n");
 }
 
-void	parsing_bonus(int argc, char **argv, t_varb *var)
+int	parsing_bonus(int argc, char **argv, t_varb *var)
 {
-	bool	here_doc;
+	int	ishere_doc;
 
-	here_doc = false;
-	if (argc < 5 || (ft_strncmp(argv[1], "here_doc", 8) && argc < 6))
+	ishere_doc = 0;
+	if (argc < 5 && (ft_strncmp(argv[1], "here_doc", 8) && argc < 6))
 		ft_error("wrong number of arguments\n");
 	if (ft_strncmp(argv[1], "here_doc", 8))
 	{
 		ft_here_doc(argc, argv, var);
-		here_doc = true;
+		ishere_doc = 1;
 	}
-	ft_check_files(argc, argv, var, here_doc);
+	else
+		ft_check_files(argc, argv, var);
+	return (ishere_doc);
 }

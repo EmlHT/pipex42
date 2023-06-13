@@ -6,7 +6,7 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:32:26 by ehouot            #+#    #+#             */
-/*   Updated: 2023/06/10 16:55:00 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/06/13 16:38:52 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 
 # include "./Libft/libft.h"
+# include "./Get_next_line/get_next_line.h"
 
 typedef struct s_varb
 {
@@ -35,10 +36,14 @@ typedef struct s_varb
 	char	**cmd;
 }				t_varb;
 
+/* -- GNL -- */
+
+char	*get_next_line(int fd);
+
 /* -- PIPEX -- */
 
 int		main_bonus(int argc, char **argv, char **envp);
-void	parsing_bonus(int argc, char **argv, t_varb *var);
+int		parsing_bonus(int argc, char **argv, t_varb *var);
 void	exec_cmd_bonus(char *argv, char **envp, t_varb *var);
 
 #endif

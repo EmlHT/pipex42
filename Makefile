@@ -6,11 +6,13 @@
 #    By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/31 09:35:20 by ehouot            #+#    #+#              #
-#    Updated: 2023/06/10 14:30:29 by ehouot           ###   ########.fr        #
+#    Updated: 2023/06/13 18:24:36 by ehouot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 LIBFT_PATH	=	./Libft/
+
+GNL_PATH	= 	./Get_next_line/
 
 SRC 		= 	./main.c \
 				./parsing.c \
@@ -20,17 +22,12 @@ SRC_BONUS	=	./main_bonus.c \
 				./parsing_bonus.c \
 				./exec_cmd_bonus.c \
 
-# SRC_LIBFT	=	 $(addprefix $(LIBFT_PATH), ft_split.c \
-# 				ft_strchr.c \
-# 				ft_strdup.c \
-# 				ft_strjoin.c \
-# 				ft_strlen.c \
-# 				ft_error.c \
-# 				ft_strncmp.c)
+SRC_GNL		=	 $(addprefix $(GNL_PATH), get_next_line.c \
+				get_next_line_utils.c)
 
 OBJ 		= $(SRC:.c=.o) $(SRC_LIBFT:.c=.o)
 
-OBJ_BONUS	= $(SRC_BONUS:.c=.o) $(SRC_LIBFT:.c=.o)
+OBJ_BONUS	= $(SRC_BONUS:.c=.o) $(SRC_LIBFT:.c=.o) $(SRC_GNL:.c=.o)
 
 HEADER		= ./
 
@@ -57,7 +54,7 @@ $(NAME):	$(OBJ)
 
 bonus:		$(OBJ) $(OBJ_BONUS)
 			@${MAKE} -C ${LIBFT_PATH}
-			@$(CC) $(CFLAGS) $(OBJ) $(OBJ_BONUS) -I $(HEADER) -o $(NAME) ${LIBFT_PATH}libft.a -o $@
+			@$(CC) $(CFLAGS) $(OBJ) $(OBJ_BONUS) -I $(HEADER) -o $(NAME) ${LIBFT_PATH}libft.a -o
 
 debug:
 	${MAKE} DEBUG=1
