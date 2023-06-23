@@ -6,7 +6,7 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:32:26 by ehouot            #+#    #+#             */
-/*   Updated: 2023/06/13 16:38:52 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/06/23 15:23:43 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@
 
 typedef struct s_varb
 {
-	int		fd[2];
+	int		infile;
+	int		outfile;
 	int		pfd[2];
 	int		fdhd[2];
-	int		tmp;
+	int		tmpfd;
+	int		here_doc;
 	pid_t	child;
 	char	**path;
 	char	**cmd;
@@ -42,8 +44,9 @@ char	*get_next_line(int fd);
 
 /* -- PIPEX -- */
 
-int		main_bonus(int argc, char **argv, char **envp);
 int		parsing_bonus(int argc, char **argv, t_varb *var);
 void	exec_cmd_bonus(char *argv, char **envp, t_varb *var);
+int		ft_mandatory(char **argv, char **envp, t_varb *var);
+void	ft_close(t_varb *var);
 
 #endif
